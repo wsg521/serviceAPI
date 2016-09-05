@@ -58,7 +58,7 @@
 		<!-- <artifactId>spring-boot-starter-freemarker</artifactId> -->
 		<!-- <version>1.4.0.RELEASE</version> -->
 		<!-- </dependency> -->
-		<!-- 用swagger 生成可交互的 API 文档 -->
+		<!-- 用swagger 生成可交互的 API 文档   URL:/swagger-ui.html -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
