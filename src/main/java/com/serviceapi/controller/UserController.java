@@ -25,6 +25,12 @@ public class UserController extends BaseController {
 		return user;
 	}
 	
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+    @ResponseBody
+	public User add() {
+		return null;
+	}
+	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
         return "Index Page";
