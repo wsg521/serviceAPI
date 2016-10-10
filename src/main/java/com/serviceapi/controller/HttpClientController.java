@@ -32,7 +32,9 @@ public class HttpClientController {
 
         System.out.println("----------------------------------------");
         System.out.println(res.getStatusLine());
-        EntityUtils.consume(entity);
+//        EntityUtils.consume(entity);
+        System.out.println("========================================");
+        System.out.println(EntityUtils.toString(entity));
         
         if (true)
         	return;

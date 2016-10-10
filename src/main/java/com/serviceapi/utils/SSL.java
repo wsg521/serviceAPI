@@ -19,6 +19,7 @@ import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
@@ -30,61 +31,58 @@ import org.apache.http.protocol.HttpContext;
  */
 public class SSL {
 	
-//	private static HttpClient httpclient = new DefaultHttpClient(new PoolingClientConnectionManager());
-//	private static SSLContext ctx;	
-//	private static SSLSocketFactory ssf;
-//	private static CookieStore cookieStore = new BasicCookieStore();
-//	// Create local HTTP context
-//    private static HttpClientContext localContext = HttpClientContext.create();
-//	//在本地上下问中绑定一个本地存储
-//	private static ClientConnectionManager ccm;
-//	//register https protocol in httpclient's scheme registry
-//	private static SchemeRegistry sr;	
-//	private static X509TrustManager tm = new X509TrustManager() {
-//		
-//		public void checkClientTrusted(X509Certificate[] xcs,
-//				String string) throws CertificateException {
-//		}
-//
-//		public void checkServerTrusted(X509Certificate[] xcs,
-//				String string) throws CertificateException {
-//		}
-//
-//		public X509Certificate[] getAcceptedIssuers() {
-//			return null;
-//		}
-//	};
+	private static HttpClient httpclient = null;
+	
+	/**
+	 * apache HttpClients
+	 * @return
+	 */
+	public static HttpClient creatHttpClient() {
+		try {
+			if (httpclient == null) {
+				httpclient = HttpClients.createDefault();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return httpclient;
+	}
 	
 	/**
 	 * 创建HttpClient
+	 * 使用新的creatHttpClient接口
 	 * @return
 	 */
+	@Deprecated
+	@SuppressWarnings("finally")
 	public static HttpClient CreatHttpClient() {
-		HttpClient httpclient = new DefaultHttpClient(new PoolingClientConnectionManager());
-		SSLContext ctx;	
-		SSLSocketFactory ssf;
-		CookieStore cookieStore = new BasicCookieStore();
-		// Create local HTTP context
-	    HttpClientContext localContext = HttpClientContext.create();
-		//在本地上下问中绑定一个本地存储
-		ClientConnectionManager ccm;
-		//register https protocol in httpclient's scheme registry
-		SchemeRegistry sr;	
-		X509TrustManager tm = new X509TrustManager() {
-			
-			public void checkClientTrusted(X509Certificate[] xcs,
-					String string) throws CertificateException {
-			}
-
-			public void checkServerTrusted(X509Certificate[] xcs,
-					String string) throws CertificateException {
-			}
-
-			public X509Certificate[] getAcceptedIssuers() {
-				return null;
-			}
-		};
 		try {
+			if (httpclient == null) {
+				httpclient = new DefaultHttpClient(new PoolingClientConnectionManager());
+			}
+			SSLContext ctx;	
+			SSLSocketFactory ssf;
+			CookieStore cookieStore = new BasicCookieStore();
+			// Create local HTTP context
+		    HttpClientContext localContext = HttpClientContext.create();
+			//在本地上下问中绑定一个本地存储
+			ClientConnectionManager ccm;
+			//register https protocol in httpclient's scheme registry
+			SchemeRegistry sr;	
+			X509TrustManager tm = new X509TrustManager() {
+				
+				public void checkClientTrusted(X509Certificate[] xcs,
+						String string) throws CertificateException {
+				}
+	
+				public void checkServerTrusted(X509Certificate[] xcs,
+						String string) throws CertificateException {
+				}
+	
+				public X509Certificate[] getAcceptedIssuers() {
+					return null;
+				}
+			};
 			ctx = SSLContext.getInstance("SSL");
 			ctx.init(null, new TrustManager[] { tm }, null);
 			ssf = new SSLSocketFactory(ctx);
@@ -96,9 +94,10 @@ public class SSL {
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		} catch (KeyManagementException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
 			return httpclient;
 		}
 	}
