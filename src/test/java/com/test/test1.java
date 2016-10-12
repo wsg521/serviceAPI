@@ -23,12 +23,12 @@ public class test1 {
 
 		// 设置邮件服务器
 		properties.setProperty("mail.smtp.host", host);
-
+		properties.put("mail.smtp.port", "465");
 		properties.put("mail.smtp.auth", "true");
 		// 获取默认session对象
 		Session session = Session.getDefaultInstance(properties, new Authenticator() {
 			public PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("1210460667@qq.com", "hxeuagjeshgdbabb"); // 发件人邮件用户名、密码
+				return new PasswordAuthentication("1210460667@qq.com", "hxeu agje shgd babb"); // 发件人邮件用户名、密码
 			}
 		});
 

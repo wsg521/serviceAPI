@@ -3,51 +3,50 @@ package com.test;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
+
+import com.sun.mail.util.MailSSLSocketFactory;
+
 import javax.activation.*;
 
 public class test {
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		 String to = "1210460667@qq.com";
- 
-	      // Sender's email ID needs to be mentioned
-	      String from = "1210460667@qq.com";
- 
-	      // Assuming you are sending email from localhost
-	      String host = "smtp.qq.com";
- 
-	      // Get system properties
-	      Properties properties = System.getProperties();
- 
-	      // Setup mail server
-	      properties.setProperty("mail.smtp.host", host);
- 
-	      // Get the default Session object.
-	      Session session = Session.getDefaultInstance(properties);
- 
-	      try{
-	         // Create a default MimeMessage object.
-	         MimeMessage message = new MimeMessage(session);
- 
-	         // Set From: header field of the header.
-	         message.setFrom(new InternetAddress(from));
- 
-	         // Set To: header field of the header.
-	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
- 
-	         // Set Subject: header field
-	         message.setSubject("This is the Subject Line!");
- 
-	         // Now set the actual message
-	         message.setText("This is actual message");
- 
-	         // Send message
-	         Transport.send(message);
-	         System.out.println("Sent message successfully....");
-	      }catch (MessagingException mex) {
-	         mex.printStackTrace();
-	      }
+		try {
+			Properties props = new Properties();
+	        // 开启debug调试
+	        props.setProperty("mail.debug", "true");
+	        // 发送服务器需要身份验证
+	        props.setProperty("mail.smtp.auth", "true");
+	        // 设置邮件服务器主机名
+	        props.setProperty("mail.host", "smtp.qq.com");
+	        // 发送邮件协议名称
+	        props.setProperty("mail.transport.protocol", "smtp");
+	
+	        MailSSLSocketFactory sf = new MailSSLSocketFactory();
+	        sf.setTrustAllHosts(true);
+	        props.put("mail.smtp.ssl.enable", "true");
+	        props.put("mail.smtp.ssl.socketFactory", sf);
+	        props.put("mail.smtp.port", "465");
+	
+	        Session session = Session.getInstance(props);
+	
+	        Message msg = new MimeMessage(session);
+	        msg.setSubject("seenews 错误");
+	        StringBuilder builder = new StringBuilder();
+	        builder.append("url = " + "http://blog.csdn.net/never_cxb/article/details/50524571");
+	        builder.append("\n页面爬虫错误");
+	        builder.append("\n时间 " + new Date().getTime());
+	        msg.setText(builder.toString());
+	        msg.setFrom(new InternetAddress("1210460667@qq.com"));
+	
+	        Transport transport = session.getTransport();
+	        transport.connect("smtp.qq.com", "1210460667@qq.com", "hxeuagjeshgdbabb");
+	
+	        transport.sendMessage(msg, new Address[] { new InternetAddress("wushangang@jianbaolife.com") });
+	        transport.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -16,7 +16,7 @@ public class SendEmailTest {
 	
 	@SuppressWarnings("static-access")  
     public static void sendMessage(String smtpHost, String from,  
-            String fromUserPassword, String to, String subject,  
+            String fromUserPassword, String fPWD,String to, String subject,  
             String messageText, String messageType) throws MessagingException {  
         // 第一步：配置javax.mail.Session对象  
         System.out.println("为" + smtpHost + "配置mail session对象");  
@@ -25,8 +25,9 @@ public class SendEmailTest {
         Properties props = new Properties();  
         props.put("mail.smtp.host", smtpHost);  
         props.put("mail.smtp.starttls.enable","true");//使用 STARTTLS安全连接  
-        //props.put("mail.smtp.port", "25");             //google使用465或587端口  
+        props.put("mail.smtp.port", "465");             //google使用465或587端口  
         props.put("mail.smtp.auth", "true");        // 使用验证  
+        props.put("mail.smtp.password", fPWD);      //授权吗
         //props.put("mail.debug", "true");  
         Session mailSession = Session.getInstance(props,new MyAuthenticator(from,fromUserPassword));  
   
@@ -47,15 +48,15 @@ public class SendEmailTest {
   
         // 第三步：发送消息  
         Transport transport = mailSession.getTransport("smtp");  
-        transport.connect(smtpHost,"chaofeng19861126", fromUserPassword);  
+        transport.connect(smtpHost,"1210460667@qq.com", fromUserPassword);  
         transport.send(message, message.getRecipients(RecipientType.TO));  
         System.out.println("message yes");  
-    }  
+    }
   
     public static void main(String[] args) {  
         try {  
-        	SendEmailTest.sendMessage("smtp.qq.com", "1210460667@qq.com",  
-                    "hxeu agje shgd babb", "1210460667@qq.com", "nihao",  
+        	SendEmailTest.sendMessage("smtp.qq.com", "1210460667@qq.com", "lgvnxgcyxpzejhhi",
+                    "lgvnxgcyxpzejhhi", "wushangang@jianbaolife.com", "nihao",  
                     "---------------wrwe-----------",  
                     "text/html;charset=gb2312"); 
         } catch (MessagingException e) {  
