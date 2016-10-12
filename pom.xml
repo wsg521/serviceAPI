@@ -58,7 +58,7 @@
 		<!-- <artifactId>spring-boot-starter-freemarker</artifactId> -->
 		<!-- <version>1.4.0.RELEASE</version> -->
 		<!-- </dependency> -->
-		<!-- 用swagger 生成可交互的 API 文档 URL:/swagger-ui.html -->
+		<!-- 用swagger 生成可交互的 API 文档 URL:/swagger-ui.html   /v2/api-docs  -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
@@ -86,11 +86,17 @@
 			<version>3.3.1</version>
 		</dependency>
 		<!--  java Send Email -->
-		<dependency>
-		    <groupId>javax.mail</groupId>
-		    <artifactId>javax.mail-api</artifactId>
-	    <version>1.4.7</version>
-</dependency>
+<!-- 		<dependency> -->
+<!-- 		    <groupId>javax.mail</groupId> -->
+<!-- 		    <artifactId>javax.mail-api</artifactId> -->
+<!-- 	    	<version>1.5.5</version> -->
+<!-- 		</dependency> -->
+			
+			<dependency>
+				<groupId>com.sun.mail</groupId>
+				<artifactId>javax.mail</artifactId>
+				<version>1.5.5</version>
+			</dependency>
 		
 	</dependencies>
 

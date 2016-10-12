@@ -54,10 +54,10 @@ public class SendEmailTest {
   
     public static void main(String[] args) {  
         try {  
-        	SendEmailTest.sendMessage("smtp.gmail.com", "1210460667@qq.com",  
-                    "ag.92120308!", "1210460667@qq.com", "nihao",  
+        	SendEmailTest.sendMessage("smtp.qq.com", "1210460667@qq.com",  
+                    "hxeu agje shgd babb", "1210460667@qq.com", "nihao",  
                     "---------------wrwe-----------",  
-                    "text/html;charset=gb2312");    
+                    "text/html;charset=gb2312"); 
         } catch (MessagingException e) {  
             // TODO Auto-generated catch block  
             e.printStackTrace();  

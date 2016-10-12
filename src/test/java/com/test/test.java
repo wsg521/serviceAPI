@@ -15,7 +15,7 @@ public class test {
 	      String from = "1210460667@qq.com";
  
 	      // Assuming you are sending email from localhost
-	      String host = "localhost";
+	      String host = "smtp.qq.com";
  
 	      // Get system properties
 	      Properties properties = System.getProperties();
